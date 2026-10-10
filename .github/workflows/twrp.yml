@@ -41,10 +41,10 @@ jobs:
           export ALLOW_MISSING_DEPENDENCIES=true
           source build/envsetup.sh
           lunch omni_X689C-eng
-          mka recoveryimage
+          mka bootimage
 
       - name: Upload Recovery Image
         uses: actions/upload-artifact@v4
         with:
           name: TWRP-Infinix-X689C
-          path: workspace/out/target/product/X689C/*.img
+          path: workspace/out/target/product/X689C/boot.img
