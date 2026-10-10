@@ -49,6 +49,7 @@ BOARD_USES_METADATA_PARTITION := true
 
 # A/B System-as-Root
 AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += boot system vendor product
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # TWRP Specific Configuration
