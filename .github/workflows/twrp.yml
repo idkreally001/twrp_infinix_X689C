@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TWRP-Infinix-X689C
-          path: workspace/out/target/product/X689C/recovery.img
+          path: workspace/out/target/product/X689C/*.img
