@@ -1,0 +1,17 @@
+#
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 TWRP Team
+#
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+
+PRODUCT_DEVICE := X689C
+PRODUCT_NAME := omni_X689C
+PRODUCT_BRAND := Infinix
+PRODUCT_MODEL := Infinix HOT 10T
+PRODUCT_MANUFACTURER := INFINIX MOBILITY LIMITED
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=X689C-OP \
+    TARGET_DEVICE=Infinix-X689C \
+    BUILD_FINGERPRINT=Infinix/X689C-OP/Infinix-X689C:11/RP1A.200720.011/230214V424:user/release-keys
