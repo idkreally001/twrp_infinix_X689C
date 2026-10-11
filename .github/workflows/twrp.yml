@@ -52,13 +52,16 @@ jobs:
           export ALLOW_MISSING_DEPENDENCIES=true
           source build/envsetup.sh
           lunch omni_X689C-eng
-          mka bootimage
+          # Fix AOSP 11 TWRP root/vendor symlink conflict with recovery/root/vendor directory
+          sed -i 's/--exclude=sdcard/--exclude=sdcard --exclude=vendor --exclude=\/root\/vendor/g' $(find build/ -name Makefile -path "*/core/*") || true
+          mka bootimage || (rm -rf out/target/product/X689C/recovery/root/vendor && mka bootimage)
 
       - name: Upload Recovery Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: TWRP-Infinix-X689C
           path: |
-            workspace/out/target/product/X689C/boot.img
+            workspace/out/target/product/X689C/*.img
             workspace/out/target/product/X689C/ramdisk-recovery.*
             workspace/out/target/product/X689C/installed-files*
