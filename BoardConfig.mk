@@ -58,8 +58,9 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_HAS_NO_REAL_SDCARD := true
 BOARD_USES_METADATA_PARTITION := true
 
-# A/B System-as-Root
+# A/B System-as-Root & Recovery-as-Boot
 AB_OTA_UPDATER := true
+BOARD_USES_RECOVERY_AS_BOOT := true
 AB_OTA_PARTITIONS += boot system vendor product
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
