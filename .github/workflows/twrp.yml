@@ -34,17 +34,31 @@ jobs:
           mkdir -p workspace/device/infinix/X689C
           rsync -av --exclude='workspace' ./ workspace/device/infinix/X689C/
 
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: twrp-ccache-${{ runner.os }}-${{ github.ref }}
+          restore-keys: |
+            twrp-ccache-${{ runner.os }}-
+
       - name: Compile TWRP
         run: |
           export PATH=~/bin:$PATH
+          export USE_CCACHE=1
+          export CCACHE_DIR=~/.ccache
+          ccache -M 10G
           cd workspace
           export ALLOW_MISSING_DEPENDENCIES=true
           source build/envsetup.sh
           lunch omni_X689C-eng
           mka bootimage
 
-      - name: Upload Recovery Image
+      - name: Upload Recovery Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: TWRP-Infinix-X689C
-          path: workspace/out/target/product/X689C/boot.img
+          path: |
+            workspace/out/target/product/X689C/boot.img
+            workspace/out/target/product/X689C/ramdisk-recovery.*
+            workspace/out/target/product/X689C/installed-files*
