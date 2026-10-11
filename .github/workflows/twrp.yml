@@ -55,6 +55,11 @@ jobs:
           # Fix AOSP 11 TWRP root/vendor symlink conflict with recovery/root/vendor directory
           sed -i 's/--exclude=sdcard/--exclude=sdcard --exclude=vendor --exclude=\/root\/vendor/g' $(find build/ -name Makefile -path "*/core/*") || true
           mka bootimage || (rm -rf out/target/product/X689C/recovery/root/vendor && mka bootimage)
+          # Sign boot image with AVB hash footer for Little Kernel verification
+          python3 external/avb/avbtool.py add_hash_footer \
+            --image out/target/product/X689C/boot.img \
+            --partition_size 33554432 \
+            --partition_name boot || true
 
       - name: Upload Recovery Artifacts
         if: always()
