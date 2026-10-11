@@ -114,7 +114,10 @@ Bringing up TWRP on the Infinix HOT 10T presented unique MediaTek-specific and V
       write /config/usb_gadget/g1/UDC "musb-hdrc"
       setprop sys.usb.state ${sys.usb.config}
   ```
-  Now, ADB connects automatically within 2 seconds of boot without touching anything.
+  Now, ADB connects automatically on boot without touching anything.
+  > [!NOTE]
+  > **Hardware PHY Timing Caveat:** On MediaTek devices with the `musb-hdrc` controller, if the USB cable is already plugged in before the phone powers on, the host USB controller may occasionally miss the D+/D- pullup handshake due to kernel PHY timing. If the PC does not enumerate the device immediately on a cold boot, simply replugging the USB cable or briefly toggling MTP in the Mount menu forces an instant gadget reset cycle.
+
 
 ### 8. A/B Slot Switching & MediaTek Boot Control HAL
 * **The Issue:** Tapping "Slot A" or "Slot B" in the TWRP Reboot menu failed with:
